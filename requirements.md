@@ -13,10 +13,22 @@ This guide includes a step by step guide to install all requirements and softwar
 
 ## RPM Packages
 
+We add both epel and scl as repositires (this will accept the GPG key from SCL).
+
 ```bash
-yum -y install deltarpm epel-release nginx jq vim java-1.8.0-openjdk python36 python36-pip maven
+yum -y install deltarpm epel-release centos-release-scl nginx jq vim java-1.8.0-openjdk python36 python36-pip git
+
+yum-config-manager --enable rhel-server-rhscl-7-rpms
+yum install -y rh-maven35
 ```
 
+## Add user
+
+Install a user that will be used to check out and build the softare:
+
+```bash
+adduser act
+```
 
 ## Cassandra
 
@@ -32,7 +44,6 @@ gpgkey=https://www.apache.org/dist/cassandra/KEYS' > /etc/yum.repos.d/cassandra.
 yum -y install cassandra
 service cassandra start
 ```
-
 
 ## Elasticsearch
 A running installation of [Elasticsearch](https://www.elastic.co/products/elasticsearch). Version 6.6+ of Elasticsearch is required.
@@ -59,14 +70,46 @@ service kibana start
 
 ```
 
-TODO: setup for "single node", memory, etc
+Use zero replicas, since we only have a single node:
 
+```bash
+curl -H 'Content-Type: application/json' -XPUT localhost:9200/_template/zeroreplicas -d ' {
+    "template" : "*",
+    "settings" : {
+        "number_of_replicas" : 0
+    }
+}'
+```
+
+Use 8GB of RAM for elasticsearch:
+
+```bash
+cp /etc/elasticsearch/jvm.options /etc/elasticsearch/jvm.options.bak
+sed -iE 's/^-Xms[0-9]\+g$/-Xms8g/' /etc/elasticsearch/jvm.options
+sed -iE 's/^-Xmx[0-9]\+g$/-Xmx8g/' /etc/elasticsearch/jvm.options
+service elasticsearch restart
+```
 
 ## node and yarn
 
-The frontend requires nodejs and yarn to build. Follow these steps to install
-
-```
+The frontend requires nodejs and yarn to build. Follow these steps to install (note - this will install and accept the RPM keys automatically).
 
 ```bash
+
+rpm -ivh https://rpm.nodesource.com/pub_11.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+yum-config-manager --enable nodesource
+
+yum install -y nodejs
+
+echo '
+[yarn]
+name=Yarn Repository
+baseurl=https://dl.yarnpkg.com/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://dl.yarnpkg.com/rpm/pubkey.gpg
+' > /etc/yum.repos.d/yarn.repo
+rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
+
+yum install -y yarn
 ```
