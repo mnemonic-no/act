@@ -20,7 +20,8 @@ The guide assumes you are running CentOS 7.x, but othe linux distributions will 
 * [Requirements](requirements.md)
 * [Core platform](platform.md)
 * [Data model](datamodel.md)
-* [Workers](datamodel.md)
+* [GUI](frontend.md)
+* [Workers](workers.md)
 * [Scio](scio.md)
 
 ## Usage

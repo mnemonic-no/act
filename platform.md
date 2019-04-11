@@ -1,5 +1,3 @@
-
-
 # Requirements
 
 To install the core platform you will need to have an installation of Cassandra, Elasticsearch, and all software specified by the RPMs in [requirements](requirements.md).
@@ -71,7 +69,7 @@ You will find logs under logs.
 ## Install as a service
 
 Most likely you would like to install it as a service.
-
+m
 This must be performed as the `root` user or with sudo and must point to the user which was used to build the software.
 
 ```bash
@@ -82,7 +80,7 @@ After=elasticsearch.service
 [Service]
 Environment=EXECUTABLE=/home/act/src/act-platform/executable/target/act-platform-0.0.1-SNAPSHOT.jar
 Environment=PROPERTIES=/home/act/conf/application.properties.localhost
-Environment='ARGS=guice module=no.mnemonic.act.platform.rest.modules.TiRestModule   module=no.mnemonic.act.platform.service.modules.TiServiceModule'
+Environment='ARGS=guice module=no.mnemonic.act.platform.rest.modules.TiRestModule module=no.mnemonic.act.platform.service.modules.TiServiceModule'
 Environment=JAVA_OPTS=-XX:-OmitStackTraceInFastThrow
 User=act
 WorkingDirectory=/home/act
