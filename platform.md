@@ -25,7 +25,7 @@ git clone https://github.com/mnemonic-no/act-platform
 
 ## Build software
 
-For detailed build instructions - consult the [platform documenation](https://github.com/mnemonic-no/act-platform).
+For detailed build instructions - consult the [platform documentation](https://github.com/mnemonic-no/act-platform).
 
 ```bash
 cd ~/src/act-platform
