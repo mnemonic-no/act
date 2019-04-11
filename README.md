@@ -13,8 +13,18 @@ This repository contains documentation on how to install the ACT platform, inclu
 
 The guide assumes you are running CentOS 7.x, but othe linux distributions will most likely be supported if they have all the necessary requirements.
 
+## Architecture
+
+## Detailed installation guide
+
 * [Requirements](requirements.md)
 * [Core platform](platform.md)
 * [Data model](datamodel.md)
 * [Workers](datamodel.md)
 * [Scio](scio.md)
+
+## Usage
+
+## Road map
+
+## FAQ

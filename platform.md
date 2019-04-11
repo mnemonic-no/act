@@ -51,16 +51,18 @@ cp executable/*.localhost ~/conf
 cp -r executable/examples ~/conf/trigger
 sed -Ei "s/^(access.controller.properties.file=).*/\1$(pwd | sed 's/\//\\\//g')\/acl.properties.localhost/" application.properties.localhost
 sed -Ei "s/^(trigger.administration.service.configuration.directory=).*/\1$(pwd | sed 's/\//\\\//g')\/trigger/" application.properties.localhost
-
 ```
 
+Create cassandra keyspace
+```bash
+cqlsh -f ~/src/act-platform/executable/testsrc/resources/setup.cql
+```
 
 ## Running the application
 
 You can now run the application manually:
 
 ```bash
-
 java -Dapplication.properties.file=$HOME/conf/application.properties.localhost -jar $HOME/src/act-platform/executable/target/act-platform-0.0.1-SNAPSHOT.jar guice module=no.mnemonic.act.platform.rest.modules.TiRestModule module=no.mnemonic.act.platform.service.modules.TiServiceModule
 ```
 
@@ -80,7 +82,7 @@ After=elasticsearch.service
 [Service]
 Environment=EXECUTABLE=/home/act/src/act-platform/executable/target/act-platform-0.0.1-SNAPSHOT.jar
 Environment=PROPERTIES=/home/act/conf/application.properties.localhost
-Environment='ARGS=guice module=no.mnemonic.act.platform.rest.RestModule module=no.mnemonic.act.platform.service.ServiceModule'
+Environment='ARGS=guice module=no.mnemonic.act.platform.rest.modules.TiRestModule   module=no.mnemonic.act.platform.service.modules.TiServiceModule'
 Environment=JAVA_OPTS=-XX:-OmitStackTraceInFastThrow
 User=act
 WorkingDirectory=/home/act
@@ -97,8 +99,5 @@ WantedBy=multi-user.target " > /etc/systemd/system/act-app.service
 systemctl daemon-reload
 systemctl enable act-app.service
 systemctl start act-app
-
-
-TODO
 
 ```
