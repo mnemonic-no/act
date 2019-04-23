@@ -28,14 +28,14 @@ For detailed build instructions - consult the [platform documentation](https://g
 
 ```bash
 cd ~/src/act-platform
-scl enable rh-maven35 "mvn clean install -DskipTests"
+scl enable rh-maven35 "mvn clean install -DskipSlowTests"
 ```
 
 If the command above fails with references to vulnerability check, you can inspect the possible vulnerability and skip the vulernability tests if they look like false positive. We have also seen that the build must run several times if depdency checks times out.
 
 ```bash
 cd ~/src/act-platform
-scl enable rh-maven35 "mvn clean install -DskipTests -DfailBuildOnAnyVulnerability=false"
+scl enable rh-maven35 "mvn clean install -DskipSlowTests -DfailBuildOnAnyVulnerability=false"
 ```
 
 
@@ -44,12 +44,11 @@ scl enable rh-maven35 "mvn clean install -DskipTests -DfailBuildOnAnyVulnerabili
 Create a default configuration under ~/conf:
 
 ```bash
-cd ~/src/act-platform
-mkdir -p ~/conf
-cp executable/*.localhost ~/conf
-cp -r executable/examples ~/conf/trigger
-sed -Ei "s/^(access.controller.properties.file=).*/\1$(pwd | sed 's/\//\\\//g')\/acl.properties.localhost/" application.properties.localhost
-sed -Ei "s/^(trigger.administration.service.configuration.directory=).*/\1$(pwd | sed 's/\//\\\//g')\/trigger/" application.properties.localhost
+cd ~/
+mkdir act-platform
+cd ~/act-platform
+tar zxvf ~/src/act-platform/deployment-combined/target/act-platform-deployment-combined-0.0.1-SNAPSHOT.tar.gz
+
 ```
 
 Create cassandra keyspace
@@ -62,15 +61,32 @@ cqlsh -f ~/src/act-platform/executable/testsrc/resources/setup.cql
 You can now run the application manually:
 
 ```bash
-java -Dapplication.properties.file=$HOME/conf/application.properties.localhost -jar $HOME/src/act-platform/executable/target/act-platform-0.0.1-SNAPSHOT.jar guice module=no.mnemonic.act.platform.rest.modules.TiRestModule module=no.mnemonic.act.platform.service.modules.TiServiceModule
+cd ~/
+export ACT_PLATFORM_CONFDIR=$HOME/conf
+export ACT_PLATFORM_LOGDIR=$HOME/logs
+act-platform/init.sh start
 ```
 
-You will find logs under logs.
+This will create the initial config under ~/conf. You will afterwars need to fix the paths for the `access.controller.properties.file` and `trigger.administration.service.configuration.director`:
+
+```bash
+sed -Ei 's/=conf\/(.*)/=\/home\/act\/conf\/\1/' $HOME/conf/application.properties
+```
+
+After this you can stop/start again:
+
+```bash
+cd ~/
+export ACT_PLATFORM_CONFDIR=$HOME/conf
+export ACT_PLATFORM_LOGDIR=$HOME/logs
+act-platform/init.sh start
+```
+
 
 ## Install as a service
 
 Most likely you would like to install it as a service.
-m
+
 This must be performed as the `root` user or with sudo and must point to the user which was used to build the software.
 
 ```bash
@@ -79,17 +95,18 @@ Description=ACT service
 After=elasticsearch.service
 
 [Service]
-Environment=EXECUTABLE=/home/act/src/act-platform/executable/target/act-platform-0.0.1-SNAPSHOT.jar
-Environment=PROPERTIES=/home/act/conf/application.properties.localhost
-Environment='ARGS=guice module=no.mnemonic.act.platform.rest.modules.TiRestModule module=no.mnemonic.act.platform.service.modules.TiServiceModule'
-Environment=JAVA_OPTS=-XX:-OmitStackTraceInFastThrow
+Type=oneshot
+Environment=ACT_PLATFORM_CONFDIR=/home/act/conf
+Environment=ACT_PLATFORM_LOGDIR=/home/act/logs
 User=act
 WorkingDirectory=/home/act
-ExecStart=/usr/bin/java \${JAVA_OPTS} -Dapplication.properties.file=\${PROPERTIES} -jar \${EXECUTABLE} \"\$ARGS\"
+ExecStart=/home/act/act-platform/init.sh start
+ExecStop=/home/act/act-platform/init.sh stop
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=act
-Restart=on-failure
+RemainAfterExit=yes
+KillMode=none
 RestartSec=5
 
 [Install]
