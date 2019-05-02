@@ -1,6 +1,6 @@
 # Data model
 
-Install the tools for managing types (as root):
+Install the tools for managing object and fact types (as root):
 
 ```bash
 pip3 install act-types
