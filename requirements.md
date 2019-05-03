@@ -1,6 +1,6 @@
 # Requirements
 
-This guide assume everything will be running on one host. The minimum hardware requirments will then be:
+This guide assume everything will be running on one host, The minimum hardware requirments will then be:
 
 * 50GB Disk
 * 8 CPU
@@ -9,7 +9,7 @@ This guide assume everything will be running on one host. The minimum hardware r
 If you plan to ingest a high volume of data or run complex queries it is advised to setup dedicated clusters for Cassandra and Elasticsearch.
 
 ## Commands
-This guide includes a step by step guide to install all requirements and software components. Unless otherwise stated, the commands should be executed as root.
+This guide includes a step by step guide to install all requirements and software components on CentOS 7.x. Unless otherwise stated, the commands should be executed as root.
 
 ## RPM Packages
 
