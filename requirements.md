@@ -16,10 +16,16 @@ This guide includes a step by step guide to install all requirements and softwar
 We add both epel and scl as repositires (this will accept the GPG key from SCL).
 
 ```bash
-yum -y install deltarpm epel-release centos-release-scl nginx jq vim java-1.8.0-openjdk python36 python36-pip git
+yum -y install deltarpm epel-release centos-release-scl nginx jq vim java-1.8.0-openjdk python36 python36-pip git beanstalkd unzip
 
 yum-config-manager --enable rhel-server-rhscl-7-rpms
 yum install -y rh-maven35
+```
+
+Enable beanstalk:
+```bash
+systemctl enable beanstalkd
+service beanstalkd start
 ```
 
 ## Add user
@@ -124,3 +130,18 @@ rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
 
 yum install -y yarn
 ```
+
+## Clojure (leiningen)
+
+Clojure is a requirement for SCIO.
+
+As the `act` user:
+```bash
+mkdir -p ~/bin
+curl -o $HOME/bin/lein https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+chmod u+rx $HOME/bin/lein
+lein
+```
+
+Also make sure ~/bin is in the `act` users $PATH.
+

@@ -100,15 +100,16 @@ Now you can run the worker like this:
 
 
 ```bash
-echo -n 94.127.56.170  | act-shadowserver-asn  --stdin
+echo -n 94.127.56.170  | act-shadowserver-asn  --stdin --output-format str
 ```
 
 Which will give you an output similar to this:
 ```
-[2019-04-30 13:14:31] app=shadowserver-asn level=INFO msg=Result from cache: ASNRecord(asn=48469, prefix='94.127.56.0/22', asname='MNEMONIC', cn='NO', isp='OSL Mnemonic as, Oslo, Norway, NO', peers=['3292'])
-{"type": "memberOf", "value": "ipv4Network", "accessMode": "Public", "sourceObject": {"type": "ipv4", "value": "94.127.56.170"}, "destinationObject": {"type": "ipv4Network", "value": "94.127.56.0/22"}, "bidirectionalBinding": false}
-{"type": "memberOf", "value": "asn", "accessMode": "Public", "sourceObject": {"type": "ipv4Network", "value": "94.127.56.0/22"}, "destinationObject": {"type": "asn", "value": 48469}, "bidirectionalBinding": false}
-{"type": "name", "value": "MNEMONIC", "accessMode": "Public", "sourceObject": {"type": "asn", "value": 48469}, "bidirectionalBinding": false}
-{"type": "owns", "value": "asn", "accessMode": "Public", "sourceObject": {"type": "organization", "value": "osl mnemonic as"}, "destinationObject": {"type": "asn", "value": 48469}, "bidirectionalBinding": false}
-{"type": "locatedIn", "value": "", "accessMode": "Public", "sourceObject": {"type": "organization", "value": "osl mnemonic as"}, "destinationObject": {"type": "country", "value": "Norway"}, "bidirectionalBinding": false}
+[act@ip-172-31-32-80 ~]$ echo -n 94.127.56.170  | act-shadowserver-asn  --stdin --output-format str
+[2019-05-03 07:59:22] app=shadowserver-asn level=INFO msg=Result from cache: ASNRecord(asn=48469, prefix='94.127.56.0/22', asname='MNEMONIC', cn='NO', isp='OSL Mnemonic as, Oslo, Norway, NO', peers=['174', '3292'])
+(ipv4/94.127.56.170) -[memberOf/ipv4Network]-> (ipv4Network/94.127.56.0/22)
+(ipv4Network/94.127.56.0/22) -[memberOf/asn]-> (asn/48469)
+(asn/48469) -[name/MNEMONIC]
+(organization/osl mnemonic as) -[owns/asn]-> (asn/48469)
+(organization/osl mnemonic as) -[locatedIn]-> (country/Norway)
 ```
