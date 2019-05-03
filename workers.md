@@ -31,7 +31,7 @@ All workers have some common options, and some of the most important one to star
 
 * `--act-baseurl and --user-id` - if these are specified facts will be added to the platform. If they are not provided, a representation of the fact will be sent to stdout instead. You will often omit these when testing out for the first time.
 * `--output-format` - Format of facts sent to stdout. Default is json, which can be used to "route facts" in NiFi or other platforms. When debugging/testing you can also use "--output-format str" which will show facts in a human readable format.
-* `--http-string` - Proxy string for external queryies (on the format "http://<HOST>:<PORT>".
+* `--proxyy-string` - Proxy string for external queryies (on the format `http://<HOST>:<PORT>`.
 
 
 ## Input workers
