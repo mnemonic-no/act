@@ -72,7 +72,7 @@ act-attack --act-baseurl http://localhost:8888 --user-id 1
 
 Other workers are used for enrichment of data. Typically they would need an input, like an IPv4 address, to be used as query parameter.
 
-* `act-shadowserver-asn` - Lookups ASN information for an IP address. Requires outbound access to UDP/43 towards
+* `act-shadowserver-asn` - Lookups ASN information for an IP address. Requires outbound access to UDP/43 towards asn.shadowserver.org
 * `act-mnemonic-pdns` - Lookups IPv4/FQDN on mnemonic pDNS. This works without a API key for a low volume of queries).
 * `act-vt` - Lookups IPv4/FQDN/hash on Virus Total (requires API key at Virus Total)
 
