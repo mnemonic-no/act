@@ -79,7 +79,7 @@ After this you can stop/start again:
 cd ~/
 export ACT_PLATFORM_CONFDIR=$HOME/conf
 export ACT_PLATFORM_LOGDIR=$HOME/logs
-act-platform/init.sh start
+act-platform/bin/init.sh start
 ```
 
 
@@ -100,8 +100,8 @@ Environment=ACT_PLATFORM_CONFDIR=/home/act/conf
 Environment=ACT_PLATFORM_LOGDIR=/home/act/logs
 User=act
 WorkingDirectory=/home/act
-ExecStart=/home/act/act-platform/init.sh start
-ExecStop=/home/act/act-platform/init.sh stop
+ExecStart=/home/act/act-platform/bin/init.sh start
+ExecStop=/home/act/act-platform/bin/init.sh stop
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=act
