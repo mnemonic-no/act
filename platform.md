@@ -53,7 +53,7 @@ tar zxvf ~/src/act-platform/deployment-combined/target/act-platform-deployment-c
 
 Create cassandra keyspace
 ```bash
-cqlsh -f ~/src/act-platform/executable/testsrc/resources/setup.cql
+cqlsh -f ~/src/act-platform/dao/testsrc/resources/setup.cql
 ```
 
 ## Running the application
