@@ -30,7 +30,7 @@ service beanstalkd start
 
 ## Add user
 
-Install a user that will be used to check out and build the softare:
+Install a user that will be used to check out and build the sofwtare:
 
 ```bash
 adduser act
