@@ -9,7 +9,7 @@ In addition, the project will develop new methods, work processes and mechanisms
 
 The code of the ACT platform is published under an Open Source license (ISC).
 
-This repository contains documentation on how to install the ACT platform, including platform, frontend, datamodel and tools for feeding the platform with structure data.
+This repository contains documentation on how to install the ACT platform, including platform, frontend, datamodel and tools for feeding the platform with structured data.
 
 The guide assumes you are running CentOS 7.x, but other linux distributions will most likely be supported if they have all the necessary requirements.
 
