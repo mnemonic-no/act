@@ -64,7 +64,7 @@ You can now run the application manually:
 cd ~/
 export ACT_PLATFORM_CONFDIR=$HOME/conf
 export ACT_PLATFORM_LOGDIR=$HOME/logs
-act-platform/init.sh start
+act-platform/bin/init.sh start
 ```
 
 This will create the initial config under ~/conf. You will afterwars need to fix the paths for the `access.controller.properties.file` and `trigger.administration.service.configuration.director`:
