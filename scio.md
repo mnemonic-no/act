@@ -47,7 +47,7 @@ As `root`:
 
 ```bash
 cp /home/act/src/act-scio/examples/systemd/scio-back.service /usr/lib/systemd/system
-sed -iE 's/User=scio/User=act/ /usr/lib/systemd/system/scio-back.service
+sed -iE 's/User=scio/User=act/' /usr/lib/systemd/system/scio-back.service
 systemctl enable scio-back.service
 /opt/scio/upgrade-latest.sh
 ```
