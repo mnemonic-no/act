@@ -1,4 +1,4 @@
-# ACT Image
+# ACT Virtual Appliance
 
 ## About the image
 
@@ -44,6 +44,7 @@ The minimum requirements for this image are:
 * Web Frontend: [http://localhost:8888](http://localhost:8888)
 * NiFi (worker orchestration): [http://localhost:8888/workers/nifi/](http://localhost:8888/workers/nifi/)
 * Swagger documentation: [http://localhost:8888/swagger/](http://localhost:8888/swagger/) (Enter "1" in the upper right corner for ACT-User-ID)
+* Kibana: [http://localhost:8888/kibana/](http://localhost:8888/kibana/)
 * SCIO API: [http://localhost:8888/scio](http://localhost:8888/scio)
 
 # Configuration
@@ -58,23 +59,13 @@ SSH is port forwarded on port 2222 on localhost.
 
 Change the password and add a personal account after installation.
 
-## NiFi
-
-Apache NiFi supports powerful and scalable directed graphs of data routing, transformation, and system mediation logic. A full intorduction to NiFi will not be given here, but we will provide a starting point to make it easier to investigate the worker orchestration.
-
-In this image, NiFi is configured to:
-
-* Receive
-
-TODO
-
 ## ACT workers
 
 Base configuration of the workers is done in `/home/nifi/.config/actworkers/actworkers.ini`. The settings in the `[DEFAULT]` are applied to all workers, and the other sections are used to configure worker specific settings or override the defaults. The default settings should be ok, but here are some change you might want to do:
 
 ### HTTP Proxy
 
-If you are behing a HTTP proxy, configure `proxy-string`, which will be used for workers connecting outbound both for HTTP and HTTPS connections:
+If you are behind a HTTP proxy, configure `proxy-string`, which will be used for workers connecting outbound both for HTTP and HTTPS connections:
 
 ```bash
 [DEFAULT]
@@ -83,7 +74,7 @@ proxy-string = http://<proxy-host>:<proxy-port>
 
 ### Log level
 
-By default, only warnings and errors are included in the logs (`/home/nifi/workerlogs`). If you have any problems, considerig reducing the loglevel to `info` or `debug`, eithr in '[DEFAULT]' or under a specific worker.
+By default, only warnings and errors are included in the logs (`/home/nifi/workerlogs`). If you have any problems, considering reducing the loglevel to `info` or `debug`, either in '[DEFAULT]' or under a specific worker.
 
 ```bash
 loglevel = info
@@ -112,9 +103,11 @@ pdns-apikey = <INSERT YOUR MNEMONIC pDNS API KEY>
 ```
 
 ## SCIO and SCIO API
-SCIO is a tool to extract indicators from reports (pdf, docx, html, etc) using a combination of natural language processing, regular expression and vocabularies.
+SCIO is a tool to extract indicators from reports (pdf, docx, html, etc.) using a combination of natural language processing, regular expression and vocabularies.
 
-SCIO and SCIO API configuration can be found in `/opt/scio/etc/scio.ini` and you should not need to change these settings in the default image.
+SCIO and SCIO API configuration can be found in `/opt/scio/etc/scio.ini` and you should not need to change these settings in the default image, but you can for instance change number of workers to process documents (default=2).
+
+Although indicators of processed documents from SCIO will end up in ACT, you can also view the details directly in kibana ([http://localhost:8888/kibana/](http://localhost:8888/kibana)).
 
 
 ## SCIO Feeds
@@ -137,11 +130,53 @@ $ crontab -u act -l
 # Report repositories
 # 55 * * * * /opt/auto_report_download/run.sh
 ```
-If you are behing a http proxy add your proxy settings at the top of each of the files referenced in cron.
+If you are behind a http proxy add your proxy settings at the top of each of the files referenced in cron.
+
+## NiFi
+
+Apache NiFi supports data ingestion, routing and transformation. A full introduction to NiFi will not be given here, but we will provide a starting point to make it easier to investigate the worker orchestration.
+
+For the default setup you will not need to do any configuration in NiFi, all configuration for the workers are done at the OS level in `/home/nifi/.config/actworkers/actworkers.ini`. However, here are some starting points if you would like to make any changes.
+
+In this image, NiFi is used by both ACT and SCIO.
+
+* SCIO
+    - Ingest output from SCIO backend
+    - Insert scio documents to elasticsearch
+    - Forward scio documents to ACT
+* ACT
+    - Run standalone workers:
+        - MISP feeds
+        - Mitre ATT&CK,
+        - Country/Region,
+        - Veris Community Database
+    - Enrich fqdn, ip, hexdigest and URLs using:
+        - Shadowserver ASN lookup
+        - Virus Total (requires api key)
+        - Unpack url shorteners
+        - mnemonic passiveDNS
+
+
+### Configuration
+Log in to NiFi ([http://localhost:8888/workers/nifi/](http://localhost:8888/workers/nifi/)) to configure the worker workflow.
+
+Here you will see two processor groups:
+
+![nifi-pg](images/nifi-scio-act.png)
+
+Double click on the ACT processor group to look at the workflow for ACT workers.
+
+![nifi-act](images/nifi-act.png)
+
+The main processor groups involved are:
+
+* Time standalone tasks (MISP, ATT&CK, etc)
+* Enrichment (ASN enrichment, pDNS enrichment)
+* Upload (Upload of facts to the platform)
 
 ## nginx
 
-The nginx configuration is set up as a reverse proxy in front of the core platform, nifi, scio and are also serving the front end.
+The nginx configuration is set up as a reverse proxy in front of the core platform, NiFi, scio and are also serving the front end.
 
 The configuration should be ok by default, but if you need to do any changes, you can find the configuration in `/etc/nginx/conf.d/nginx-act.conf`.
 
