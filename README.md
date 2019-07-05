@@ -24,6 +24,10 @@ The guide assumes you are running CentOS 7.x, but other linux distributions will
 * [Workers](workers.md)
 * [Scio](scio.md)
 
+## Virtual Appliance
+
+* [Download and usage](virtual-appliacnce.md)
+
 <!--- ## Usage -->
 
 <!--- ## Road map -->
