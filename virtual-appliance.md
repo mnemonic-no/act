@@ -4,6 +4,8 @@
 
 This image is a virtual appliance that can be installed in virtual box or vmware. The image contains a "clean" installation, with only the ACT data model. When booting the image it will start to bootstrap the image with feeds, workers, enrichment and optionally a repository of reports.
 
+The import of data should start immediately after booting the image, but it could take several days to import and enrich everything.
+
 ## Download
 
 The image is ~ 19GB and can be downloaded here:
@@ -31,10 +33,12 @@ The image contains:
 
 The minimum requirements for this image are:
 
-* Tested on Virtual Box 6, but should also work on VMWare
+* Virtual Box 6, with NAT network
 * 10GB RAM
 * 4 CPUs
 * 60 GB disk
+
+It should also work to install the virtual appliance on vmware, but the port forwarding is not automatically set up after installation, so you will need configure that yourself after importing the image. 
 
 # Usage
 
