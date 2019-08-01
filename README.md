@@ -26,7 +26,7 @@ The guide assumes you are running CentOS 7.x, but other linux distributions will
 
 ## Virtual Appliance
 
-* [Download and usage](virtual-appliacnce.md)
+* [Download and usage](virtual-appliance.md)
 
 <!--- ## Usage -->
 
