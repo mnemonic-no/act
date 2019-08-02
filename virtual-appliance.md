@@ -11,7 +11,8 @@ The import of data should start immediately after booting the image, but it coul
 The image is ~ 19GB and can be downloaded here:
 
 ### Version 2019-07-06
-* [https://act-image-us.s3-us-west-1.amazonaws.com/act-image-2019-07-06.ova](https://act-image-us.s3-us-west-1.amazonaws.com/act-image-2019-07-06.ova)
+* US: [https://act-image-us.s3-us-west-1.amazonaws.com/act-image-2019-07-06.ova](https://act-image-us.s3-us-west-1.amazonaws.com/act-image-2019-07-06.ova)
+* Europe: [https://act-image.s3-eu-west-1.amazonaws.com/act-image-2019-07-06.ova](https://act-image.s3-eu-west-1.amazonaws.com/act-image-2019-07-06.ova)
 
 ### Version 2019-07-03
 
