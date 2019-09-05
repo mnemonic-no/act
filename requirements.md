@@ -67,12 +67,6 @@ gpgkey=https://www.apache.org/dist/cassandra/KEYS' > /etc/yum.repos.d/cassandra.
 yum -y install cassandra
 ```
 
-Set cluster name to `ActPlatform`
-
-```bash
-sed -iE "s/cluster_name:.*/cluster_name: 'ActPlatform'/" /etc/cassandra/default.conf/cassandra.yaml
-```
-
 Start cassandra and make sure it starts at boot time.
 ```bash
 service cassandra start
