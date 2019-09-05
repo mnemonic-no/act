@@ -53,7 +53,7 @@ tar zxvf ~/src/act-platform/deployment-combined/target/act-platform-deployment-c
 
 Create cassandra keyspace
 ```bash
-cqlsh -f ~/src/act-platform/executable/testsrc/resources/setup.cql
+cqlsh -f ~/src/act-platform/dao/testsrc/resources/setup.cql
 ```
 
 ## Running the application
@@ -64,7 +64,7 @@ You can now run the application manually:
 cd ~/
 export ACT_PLATFORM_CONFDIR=$HOME/conf
 export ACT_PLATFORM_LOGDIR=$HOME/logs
-act-platform/init.sh start
+act-platform/bin/init.sh start
 ```
 
 This will create the initial config under ~/conf. You will afterwars need to fix the paths for the `access.controller.properties.file` and `trigger.administration.service.configuration.director`:
@@ -79,7 +79,7 @@ After this you can stop/start again:
 cd ~/
 export ACT_PLATFORM_CONFDIR=$HOME/conf
 export ACT_PLATFORM_LOGDIR=$HOME/logs
-act-platform/init.sh start
+act-platform/bin/init.sh start
 ```
 
 
@@ -100,8 +100,8 @@ Environment=ACT_PLATFORM_CONFDIR=/home/act/conf
 Environment=ACT_PLATFORM_LOGDIR=/home/act/logs
 User=act
 WorkingDirectory=/home/act
-ExecStart=/home/act/act-platform/init.sh start
-ExecStop=/home/act/act-platform/init.sh stop
+ExecStart=/home/act/act-platform/bin/init.sh start
+ExecStop=/home/act/act-platform/bin/init.sh stop
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=act

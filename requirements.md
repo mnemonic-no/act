@@ -27,10 +27,27 @@ Enable beanstalk:
 systemctl enable beanstalkd
 service beanstalkd start
 ```
+## SELINUX
+
+Some the installation procedures are known to fail with SELINUX enabled. For an internal test setup, you can disable it:
+
+```
+sed -Ei "s/(SELINUX=).*/\1disabled/" /etc/sysconfig/selinux
+setenforce 0
+```
+
+If you would like to have SELINUX enabled, here are some configuration to get you started:
+
+```
+# NGINX
+setsebool -P httpd_can_network_connect 1
+setsebool -P httpd_read_user_content 1
+chcon -Rt httpd_sys_content_t /usr/share/nginx/html
+```
 
 ## Add user
 
-Install a user that will be used to check out and build the softare:
+Install a user that will be used to check out and build the sofwtare:
 
 ```bash
 adduser act
