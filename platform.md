@@ -67,7 +67,7 @@ export ACT_PLATFORM_LOGDIR=$HOME/logs
 act-platform/bin/init.sh start
 ```
 
-This will create the initial config under ~/conf. You will afterwars need to fix the paths for the `access.controller.properties.file` and `trigger.administration.service.configuration.director`:
+This will create the initial config under ~/conf. You will afterwars need to fix the paths for the `access.controller.properties.file` and `trigger.administration.service.configuration.directory`:
 
 ```bash
 sed -Ei 's/=conf\/(.*)/=\/home\/act\/conf\/\1/' $HOME/conf/application.properties
