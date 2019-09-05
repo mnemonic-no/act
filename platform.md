@@ -71,6 +71,13 @@ This will create the initial config under ~/conf. You will afterwars need to fix
 
 ```bash
 sed -Ei 's/=conf\/(.*)/=\/home\/act\/conf\/\1/' $HOME/conf/application.properties
+
+Set datacenter name to `datacenter1`, which should be default in a standard cassandra installation, or something else if this is changed during installation.
+
+```bash
+sed -Ei 's/(cassandra.data.center)=(.*)/\1=datacenter1/' $HOME/conf/application.properties
+```
+
 ```
 
 After this you can stop/start again:
