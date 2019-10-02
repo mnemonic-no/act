@@ -10,6 +10,10 @@ The import of data should start immediately after booting the image, but it coul
 
 The image is ~ 19GB and can be downloaded here:
 
+### Version 2019-09-30
+* US: [https://act-image-us.s3-us-west-1.amazonaws.com/act-image-2019-09-30.ova](https://act-image-us.s3-us-west-1.amazonaws.com/act-image-2019-09-30.ova)
+* Europe: [https://act-image.s3-eu-west-1.amazonaws.com/act-image-2019-09-30.ova](https://act-image.s3-eu-west-1.amazonaws.com/act-image-2019-09-30.ova)
+
 ### Version 2019-07-06
 * US: [https://act-image-us.s3-us-west-1.amazonaws.com/act-image-2019-07-06.ova](https://act-image-us.s3-us-west-1.amazonaws.com/act-image-2019-07-06.ova)
 * Europe: [https://act-image.s3-eu-west-1.amazonaws.com/act-image-2019-07-06.ova](https://act-image.s3-eu-west-1.amazonaws.com/act-image-2019-07-06.ova)
@@ -42,7 +46,7 @@ The minimum requirements for this image are:
 * 4 CPUs
 * 60 GB disk
 
-It should also work to install the virtual appliance on vmware, but the port forwarding is not automatically set up after installation, so you will need configure that yourself after importing the image. 
+It should also work to install the virtual appliance on vmware, but the port forwarding is not automatically set up after installation, so you will need to configure that yourself after importing the image.
 
 # Usage
 
