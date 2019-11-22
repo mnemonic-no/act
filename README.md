@@ -23,6 +23,8 @@ The guide assumes you are running CentOS 7.x, but other linux distributions will
 * [GUI](frontend.md)
 * [Workers](workers.md)
 * [Scio](scio.md)
+* [Scio feeds](scio-feeds.md)
+* [NIFI](nifi.md)
 
 ## Virtual Appliance
 
