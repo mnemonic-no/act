@@ -40,7 +40,7 @@ You must also start all the services, by click on the lighting symbol at the rig
 
 After installing these services you will need to look for an orange triangle in processors/processor groups and configure them to use the newly installed services.
 
-### Add NiFi home to init script
+### Add /usr/local/bin to init script
 
 Edit `/etc/init.d/nifi` to add /usr/local/bin to your path, so the last lines will look like this:
 
