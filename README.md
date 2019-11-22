@@ -24,7 +24,7 @@ The guide assumes you are running CentOS 7.x, but other linux distributions will
 * [Workers](workers.md)
 * [Scio](scio.md)
 * [Scio feeds](scio-feeds.md)
-* [NIFI](nifi.md)
+* [NiFi](nifi.md)
 
 ## Virtual Appliance
 
