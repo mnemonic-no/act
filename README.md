@@ -23,6 +23,7 @@ The guide assumes you are running CentOS 7.x, but other linux distributions will
 * [GUI](frontend.md)
 * [Workers](workers.md)
 * [Scio](scio.md)
+* [Scio API](scio-api.md)
 * [Scio feeds](scio-feeds.md)
 * [NiFi](nifi.md)
 
