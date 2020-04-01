@@ -42,12 +42,10 @@ After installing these services you will need to look for an orange triangle in 
 
 ### Add /usr/local/bin to init script
 
-Edit `/etc/init.d/nifi` to add /usr/local/bin to your path, so the last lines will look like this:
+Edit `$NIFI_HOME/bin/nifi-env.sh` to add /usr/local/bin to your path, so it includes:
 
 ```bash
 export PATH=$PATH:/usr/local/bin
-
-${nifi_executable} "$@"
 ```
 
 In this way we can execute commands in NiFi from /usr/local/bin without using full path of the ACT workers.
