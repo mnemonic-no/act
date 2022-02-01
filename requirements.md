@@ -9,7 +9,8 @@ This guide assume everything will be running on one host, The minimum hardware r
 If you plan to ingest a high volume of data or run complex queries it is advised to setup dedicated clusters for Cassandra and Elasticsearch.
 
 ## Commands
-This guide includes a step by step guide to install all requirements and software components on CentOS 7.x. Unless otherwise stated, the commands should be executed as root.
+This guide includes a step by step guide to install all requirements and software components on CentOS 7.x. Unless otherwise stated, the commands should be executed as root. 
+If installing on another platform, install Cassandra, Elasticsearch, Java JDK (11), Node (yarn) and python 3.
 
 ## RPM Packages
 
@@ -74,16 +75,16 @@ chkconfig cassandra on
 ```
 
 ## Elasticsearch
-A running installation of [Elasticsearch](https://www.elastic.co/products/elasticsearch). Version 6.6+ of Elasticsearch is required.
+A running installation of [Elasticsearch](https://www.elastic.co/products/elasticsearch). Version 7.16+ of Elasticsearch is required.
 
 ```bash
 echo '
-[elasticsearch-6.x]
-name=Elasticsearch repository for 6.x packages
-baseurl=https://artifacts.elastic.co/packages/6.x/yum
+[elasticsearch]
+name=Elasticsearch repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
 gpgcheck=1
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
-enabled=1
+enabled=0
 autorefresh=1
 type=rpm-md' > /etc/yum.repos.d/elasticsearch.repo
 rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
@@ -95,7 +96,6 @@ systemctl enable kibana.service
 service elasticsearch start
 sleep 5
 service kibana start
-
 ```
 
 Use zero replicas, since we only have a single node:
@@ -140,18 +140,6 @@ gpgkey=https://dl.yarnpkg.com/rpm/pubkey.gpg
 rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
 
 yum install -y yarn
-```
-
-## Clojure (leiningen)
-
-Clojure is a requirement for SCIO.
-
-As the `act` user:
-```bash
-mkdir -p ~/bin
-curl -o $HOME/bin/lein https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
-chmod u+rx $HOME/bin/lein
-lein
 ```
 
 Also make sure ~/bin is in the `act` users $PATH.

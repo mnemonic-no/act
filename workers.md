@@ -15,7 +15,7 @@ First, run `act-worker-config`, which is part of the python package installed ab
 act-worker-config user
 ```
 
-This will create a config file as `~/config/actworkers/actworkers.ini`.
+This will create a config file as `~/config/act/act.ini`.
 
 As default, all options are commented out, but the defaults will be shown, e.g.:
 
@@ -24,6 +24,55 @@ As default, all options are commented out, but the defaults will be shown, e.g.:
 ```
 
 Please not that you will most often not add act-baseurl and user-id to the configration as this will not make it possible to test workers on the command line and printing facts to stdout.
+
+## Access Mode
+
+TODO
+
+## Origins
+
+TODO
+
+```bash
+#!/usr/bin/env bash
+
+BASE_URL=http://localhost:8888
+
+add_origin() {
+    name=$1
+    description=$2
+    trust=${3:-0.8}
+
+    curl ${BASE_URL}/v1/origin \
+	-X POST \
+	-H 'Content-Type: application/json' \
+	-H "Accept: application/json" \
+          -H "ACT-User-ID: 1" \
+	-d "{
+		\"name\": \"$name\",
+		\"description\": \"$description\",
+		\"trust\": $trust
+	   }"
+
+}
+
+add_origin alienvault-otx "AlienVault OTX"
+add_origin circllu-misp "CIRCL MISP"
+add_origin circllu-ip-asn "CIRCL IP-ASN"
+add_origin isight "FireEye Threat Intelligence (isight)"
+add_origin iso-3166 "ISO-3166 Country Regions"
+add_origin mitre-attack "MITRE ATT&CK"
+add_origin hybridanalysis "hybridanalysis"
+add_origin mnemonic-ai "mnemonic AI"
+add_origin mnemonic-pdns "mnemonic PassiveDNS"
+add_origin scio "scio"
+add_origin shadowserver-asn "Shadowserver IP-BGP"
+add_origin shadowserver-enrich "Shadowserver enrichment"
+add_origin thaicert-ta "Thai CERT threat group cards" 0.5
+add_origin url-shortener "shortened URL expander"
+add_origin vcdb "Veris Community Database"
+add_origin virustotal "Virus Total"
+```
 
 ## Common options
 

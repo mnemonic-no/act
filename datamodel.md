@@ -15,5 +15,5 @@ act-types \
     --default-object-types \
     --default-fact-types \
     --default-meta-fact-types \
-    add
+    --add
 ```
