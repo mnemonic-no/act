@@ -1,9 +1,9 @@
 # Workers
 
-You can now install some [workers](https://github.com/mnemonic-no/act-workers) for getting facts in to the platform.
+You can now install some [workers](https://github.com/mnemonic-no/act-workers) and administrative tools for getting facts in to the platform.
 
 ```bash
-pip3 install act-workers
+pip3 install act-workers act-admin
 ```
 
 ## Configuration
@@ -15,7 +15,7 @@ First, run `act-worker-config`, which is part of the python package installed ab
 act-worker-config user
 ```
 
-This will create a config file as `~/config/actworkers/actworkers.ini`.
+This will create a config file as `~/.config/act/act.ini`.
 
 As default, all options are commented out, but the defaults will be shown, e.g.:
 
@@ -32,6 +32,22 @@ All workers have some common options, and some of the most important one to star
 * `--act-baseurl and --user-id` - if these are specified facts will be added to the platform. If they are not provided, a representation of the fact will be sent to stdout instead. You will often omit these when testing out for the first time.
 * `--output-format` - Format of facts sent to stdout. Default is json, which can be used to "route facts" in NiFi or other platforms. When debugging/testing you can also use "--output-format str" which will show facts in a human readable format.
 * `--proxyy-string` - Proxy string for external queryies (on the format `http://<HOST>:<PORT>`.
+
+## Origins
+
+All facts added to the platform will have an origin, to see where they come from. These can be changed but you can use the defaults as provded by `origin-name` in the configuration file in ~/.config/act/act.ini.
+
+These origins must also be added to the platform. To add all origins specified in `act.ini` run:
+
+```bash
+act-origin --act-baseurl http://localhost:8888 --user-id 1 --from-config
+```
+
+act-origin is installed in the act-admin tool with pip.
+
+## Access Mode
+
+Facts in the platform also have access modes which are relevant if you later share facts from the platform. Defaults are included in `act.ini`, but you can change them as you like.
 
 
 ## Input workers

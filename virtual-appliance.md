@@ -1,5 +1,9 @@
 # ACT Virtual Appliance
 
+## Warning
+
+This image is currently outdated, and we advise to follow the general installation guide to build your own image.
+
 ## About the image
 
 This image is a virtual appliance that can be installed in virtual box or vmware. The image contains a "clean" installation, with only the ACT data model. When booting the image it will start to bootstrap the image with feeds, workers, enrichment and optionally a repository of reports.
