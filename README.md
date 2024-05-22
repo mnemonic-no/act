@@ -13,12 +13,6 @@ This repository contains documentation on how to install the ACT platform, inclu
 
 The guide assumes you are running CentOS 7.x, but other linux distributions will most likely be supported if they have all the necessary requirements.
 
-## Testing the platform
-
-An open, read only, instance is available on [https://act.mnemonic.no](https://act.mnemonic.no), so if you want to try out the platform without setting it up yourself you can go there.
-
-<!--- ## Architecture -->
-
 ## Detailed installation guide
 
 * [Requirements](requirements.md)
